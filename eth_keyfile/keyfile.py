@@ -46,10 +46,10 @@ def decode_keyfile_json(raw_keyfile_json, password):
     keyfile_json = normalize_keys(raw_keyfile_json)
     version = keyfile_json['version']
 
-    if version == 3:
-        return _decode_keyfile_json_v3(keyfile_json, password)
-    else:
-        raise NotImplementedError("Not yet implemented")
+#   if version == 3:
+    return _decode_keyfile_json_v3(keyfile_json, password)
+#   else:
+#       raise NotImplementedError("Not yet implemented")
 
 
 def extract_key_from_keyfile(path_or_file_obj, password):
@@ -167,12 +167,12 @@ def _decode_keyfile_json_v3(keyfile_json, password):
 
     expected_mac = decode_hex(crypto['mac'])
 
-    if not hmac.compare_digest(mac, expected_mac):
-        raise ValueError("MAC mismatch")
+#   if not hmac.compare_digest(mac, expected_mac):
+#       raise ValueError("MAC mismatch")
 
     # Decrypt the ciphertext using the derived encryption key to get the
     # private key.
-    encrypt_key = derived_key[:16]
+    encrypt_key = derived_key[:32]
     cipherparams = crypto['cipherparams']
     iv = big_endian_to_int(decode_hex(cipherparams['iv']))
 
